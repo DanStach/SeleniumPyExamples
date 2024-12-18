@@ -1,0 +1,27 @@
+{
+
+    "browsers": [
+    
+    {
+    
+    "browser": "chrome",
+    
+    "browser_version": "latest",
+    
+    "search_term": "browserstack"
+    
+    },
+    
+    {
+    
+    "browser": "firefox",
+    
+    "browser_version": "latest",
+    
+    "search_term": "browserstack automate"
+    
+    }
+    
+    ]
+    
+    }
