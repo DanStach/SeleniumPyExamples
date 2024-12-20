@@ -9,56 +9,55 @@ from selenium.webdriver import ActionChains
 import time
 
 # ARRANGE
-option = webdriver.ChromeOptions()
-driver = webdriver.Chrome(options = option)
-
+driver = webdriver.Chrome()
 expTitle = 'Online Payroll Services | HR Payroll Software | Paycom'
+expArtURL = 'https://www.paycom.com/resources/blog/pre-employment-testing-good-bad/'
 
 # ACT
+# navigate to site
 driver.get('https://www.paycom.com/')
 driver.implicitly_wait(2.0)
 title = driver.title
 
-#
-assert title == expTitle
+# ASSERT
+# Check title text
+assert title == expTitle , "Issue: Title mismatch. Exp: " + expTitle + " Found: " + title
 
 
-
-# hover over resources and click all resources %
+# ACT 
+# hover over resources and click "all resources" 
 drpdwnResources = driver.find_element(By.ID, 'resourcesDropdown')
 actions = ActionChains(driver)
 actions.move_to_element(drpdwnResources).perform()
-
-time.sleep(3) ## pause to watch screen :)
+time.sleep(3) ## demo only: pause to  watch screen :)
 
 linkAllRes = driver.find_element(By.XPATH, '//*[@id="navbarSupportedContent"]//a[text()="All Resources"]')
 linkAllRes.click()
-
-time.sleep(3) ## pause to watch screen :)
+time.sleep(3) ## demo only: pause to  watch screen :)
 
 WebDriverWait(driver, 8).until(
     EC.presence_of_element_located((By.XPATH,'//*[@id="search-form-input"]'))
 )
+time.sleep(3) ## demo only: pause to  watch screen :)
 
-time.sleep(3) ## pause to watch screen :)
 
-
+# search for "test"
 txtSearchBox = driver.find_element(By.XPATH, '//*[@id="search-form-input"]')
-buttonSearch = driver.find_element(By.XPATH, '//*[@id="search-form"]/button')
-
+buttonSearch = driver.find_element(By.XPATH, '//*[@id="search-form"]/button/i')
 txtSearchBox.send_keys("test")
 time.sleep(3) ## pause to watch screen :)
 buttonSearch.click()
 
-
+# look for article "Pre-employment Testing"
 WebDriverWait(driver, 8).until(
     EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, 'Pre-employment Testing: Good or Bad?'))
 )
+elArticlePreEmployment = driver.find_element(By.PARTIAL_LINK_TEXT, 'Pre-employment Testing: Good or Bad?')
+elArticlePreEmployment.click()
+time.sleep(3) ## pause to watch screen :)
 
-driver.find_element(By.PARTIAL_LINK_TEXT, 'Pre-employment Testing: Good or Bad?').click()
-
-
-time.sleep(6) ## pause to watch screen :)
-
+# ASSERT 
+print(driver.current_url)
+assert driver.current_url == expArtURL, "ISSUE: unexpected URL Exp: " + expArtURL + " Found: " + driver.current_url
 
 driver.quit()
