@@ -1,10 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 import time
 
@@ -13,18 +8,23 @@ driver = webdriver.Chrome()
 expTitle = 'NCR Voyix'
 expArtURL = 'https://www.ncrvoyix.com/restaurant/contact'
 
-# ACT
+# ACT1
 # navigate to site
 driver.get('https://www.ncrvoyix.com/')
 driver.implicitly_wait(2.0)
 title = driver.title
 
-# ASSERT
+# ASSERT1
 # Check title text
 assert title == expTitle , "Issue: Title mismatch. Exp: " + expTitle + " Found: " + title
 
 
-# ACT 
+# ACT2
+# first close onetrust popup
+btnonetrust = driver.find_element(By.ID, 'onetrust-close-btn-container')
+btnonetrust.click()
+
+
 # navigate to restaurant then restaurant type quick service
 linkRestaurant = driver.find_element(By.XPATH, '//*[@class="navbar_link-text w-nav-link"]')
 linkRestaurant.click()
@@ -51,7 +51,7 @@ txtFirstName.send_keys("DanDan")
 txtLastName.send_keys("TheQaMan")
 time.sleep(3) ## demo only: pause to  watch screen :)
 
-# ASSERT 
+# ASSERT2
 print(driver.current_url)
 assert driver.current_url == expArtURL, "ISSUE: unexpected URL Exp: " + expArtURL + " Found: " + driver.current_url
 
