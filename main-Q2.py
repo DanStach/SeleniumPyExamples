@@ -13,7 +13,7 @@ driver.set_window_size(1500,800)
 
 navUrlHome = 'https://www.q2.com/'
 expTitleHomePage = "Digital Banking Solutions for Banks and Credit Unions | Q2"
-expArtURL = ''
+expArtURL = 'https://www.q2.com/company/newsroom'
 
 cssMainCompany = '#primary-menu > ul > li.hs-menu-item.hs-menu-depth-1.hs-item-has-children.open > div.hs-menu-item-text > span' # css selector is fragile 
 xpathCompanyWork = '//*[@data-menu-label="Company"]' # xpath is stable and simple
